@@ -22,7 +22,13 @@ export class MessagesController {
 
     @Get('/:id')
     getMessage(@Param() id: string){
-        return this.messagesService.findOne(id);
+        const message = this.messagesService.findOne(id);
+
+        if (!message) {
+            throw new NotFoundException('message not found');
+        }
+
+        return message
     }
 }
 
